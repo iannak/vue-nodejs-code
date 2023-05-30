@@ -1,7 +1,7 @@
 const request = require("supertest");
-const app = require("../app");
+const app = require("../../app");
 const mongoose = require("mongoose");
-const Participant = require("../src/models/participant");
+const Participant = require("../models/participant");
 
 describe("Participants API", () => {
   beforeAll(async () => {
@@ -9,15 +9,15 @@ describe("Participants API", () => {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-  }, 30000);
+  }, 10000);
 
   afterEach(async () => {
     await Participant.deleteMany();
-  }, 30000);
+  }, 10000);
 
   afterAll(async () => {
     await mongoose.connection.close();
-  }, 30000);
+  }, 10000);
 
   it("should create a new participant", async () => {
     const response = await request(app).post("/participants").send({
@@ -30,7 +30,7 @@ describe("Participants API", () => {
     expect(response.body.firstName).toBe("John");
     expect(response.body.lastName).toBe("Doe");
     expect(response.body.percentage).toBe(50);
-  }, 30000);
+  }, 10000);
 
   it("should get all participants", async () => {
     await Participant.create({
@@ -54,7 +54,7 @@ describe("Participants API", () => {
     expect(response.body[1].firstName).toBe("Jane");
     expect(response.body[1].lastName).toBe("Smith");
     expect(response.body[1].percentage).toBe(30);
-  }, 30000);
+  }, 10000);
 
   it("should get a participant by ID", async () => {
     const participant = await Participant.create({
@@ -69,7 +69,7 @@ describe("Participants API", () => {
     expect(response.body.firstName).toBe("John");
     expect(response.body.lastName).toBe("Doe");
     expect(response.body.percentage).toBe(50);
-  }, 30000);
+  }, 10000);
 
   it("should handle not found error when getting a participant by ID", async () => {
     const invalidId = "invalid-id";
@@ -78,7 +78,7 @@ describe("Participants API", () => {
 
     expect(response.statusCode).toBe(404);
     expect(response.body.error).toBe("Participante não encontrado");
-  }, 30000);
+  }, 10000);
 
   it("should update a participant", async () => {
     const participant = await Participant.create({
@@ -101,7 +101,7 @@ describe("Participants API", () => {
     expect(response.body.firstName).toBe("Jane");
     expect(response.body.lastName).toBe("Smith");
     expect(response.body.percentage).toBe(70);
-  }, 30000);
+  }, 10000);
 
   it("should handle not found error when updating a participant", async () => {
     const invalidId = "invalid-id";
@@ -116,7 +116,7 @@ describe("Participants API", () => {
 
     expect(response.statusCode).toBe(404);
     expect(response.body.error).toBe("Participante não encontrado");
-  }, 30000);
+  }, 10000);
 
   it("should delete a participant", async () => {
     const participant = await Participant.create({
@@ -131,7 +131,7 @@ describe("Participants API", () => {
 
     const deletedParticipant = await Participant.findById(participant._id);
     expect(deletedParticipant).toBeNull();
-  }, 30000);
+  }, 10000);
 
   it("should handle not found error when deleting a participant", async () => {
     const invalidId = "invalid-id";
@@ -140,5 +140,5 @@ describe("Participants API", () => {
 
     expect(response.statusCode).toBe(404);
     expect(response.body.error).toBe("Participante não encontrado");
-  }, 30000);
+  }, 10000);
 });
