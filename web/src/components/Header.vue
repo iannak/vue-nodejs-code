@@ -1,9 +1,9 @@
 <template>
   <header class="custom-header">
     <div class="input-container">
-      <input type="text" v-model="firstName" placeholder="First Name" />
-      <input type="text" v-model="lastName" placeholder="Last Name" />
-      <input type="text" v-model="percentage" placeholder="Participation" />
+      <input type="text" v-model="firstName" placeholder="First Name" style="padding: 0.5rem;" />
+      <input type="text" v-model="lastName" placeholder="Last Name" style="padding: 0.5rem;" />
+      <input type="text" v-model="percentage" placeholder="Participation" style="padding: 0.5rem;" />
       <button @click="sendData">SEND</button>
     </div>
   </header>
@@ -32,7 +32,7 @@ input {
 }
 
 input::placeholder {
-  padding: 0 14px;
+  padding: 0 0px;
 }
 
 button {
